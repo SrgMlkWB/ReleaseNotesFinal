@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-translate="title">Release Notes - WINBACK</title>
+    <link rel="icon" href="img/LogoWBrond.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <!-- Burger menu déplacé en premier -->
+        <div class="burger-menu" id="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <!-- Logo déplacé après -->
+        <object
+          id="winback-logo"
+          data="img/logoWB.svg"
+          type="image/svg+xml"
+        ></object>
+      </div>
+      <div class="nav-controls">
+        <div class="search-container">
+          <img
+            src="img/loupe.png"
+            alt="Search"
+            class="search-icon"
+            id="search-toggle"
+          />
+          <div class="search-bar" id="search-bar">
+            <input
+              type="text"
+              placeholder="Search release history..."
+              data-translate="search_placeholder"
+            />
+          </div>
+        </div>
+        <div class="theme-toggle">
+          <label for="toggle" class="switch">
+            <span class="switch-label"></span>
+            <input type="checkbox" id="toggle" aria-label="Toggle dark mode" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </nav>
+
+    <header>
+      <h1 data-translate="title">Release Notes</h1>
+      <div class="header-bottom">
+        <div class="header-disclaimer">
+          <div class="language-selector">
+            <label for="language-select" class="visually-hidden"
+              >Select language</label
+            >
+            <select id="language-select" aria-label="Select language">
+              <option value="en">🇬🇧</option>
+              <option value="fr">🇫🇷</option>
+              <option value="de">🇩🇪</option>
+              <option value="nl">🇳🇱</option>
+              <option value="el">🇬🇷</option>
+              <option value="hu">🇭🇺</option>
+              <option value="it">🇮🇹</option>
+              <option value="pl">🇵🇱</option>
+              <option value="pt">🇵🇹</option>
+              <option value="es">🇪🇸</option>
+              <option value="sv">🇸🇪</option>
+              <option value="tr">🇹🇷</option>
+            </select>
+          </div>
+          <span data-translate="disclaimer"
+            >For any questions or translation requests, contact us at +33 4 12
+            34 56 78 or support@winback.com</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="sidebar hidden" id="sidebar">
+        <ul>
+          <li>
+            <a href="#version20"
+              >Version 20
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version19"
+              >Version 19
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version18"
+              >Version 18
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version17"
+              >Version 17
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version16"
+              >Version 16
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version15"
+              >Version 15
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version14"
+              >Version 14
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version13"
+              >Version 13
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version12"
+              >Version 12
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version11"
+              >Version 11
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version10"
+              >Version 10
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version9"
+              >Version 9
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version8"
+              >Version 8
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version7"
+              >Version 7
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version6"
+              >Version 6
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version5"
+              >Version 5
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version4"
+              >Version 4
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version3"
+              >Version 3
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version2"
+              >Version 2
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version1"
+              >Version 1
+              <img src="img/Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <section id="version20" class="version">
+          <h2>
+            Version 20
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on July 15, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 2.0.0</h3>
+            <p data-translate="summary">
+              Major update with new features and improvements
+            </p>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5, BACK4</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class A</p>
+            <h4 data-translate="type">Type:</h4>
+            <p data-translate="evolutionary">Major Release</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Integration of AI-powered treatment protocols</li>
+              <li>New user interface with customizable dashboard</li>
+              <li>Advanced patient data analytics</li>
+              <li>Real-time treatment monitoring system</li>
+            </ul>
+            <h4 data-translate="installation">Installation</h4>
+            <ol>
+              <li data-translate="download">Download update</li>
+              <li data-translate="install">Install update on device</li>
+              <li data-translate="restart">Restart device</li>
+            </ol>
+            <h4 data-translate="support">Technical Support</h4>
+            <p>Email: support@winback.com<br />Phone: +33 4 12 34 56 78</p>
+          </div>
+        </section>
+
+        <section id="version19" class="version">
+          <h2>
+            Version 19
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on May 3, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.9.3</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5, BACK4, BACK3</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class B</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Security Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Enhanced encryption for patient data</li>
+              <li>Updated wireless communication protocols</li>
+              <li>Improved firewall protection</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version18" class="version">
+          <h2>
+            Version 18
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on March 28, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.8.5</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Feature Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>New treatment protocols for sports medicine</li>
+              <li>Enhanced battery management system</li>
+              <li>Improved treatment scheduling interface</li>
+              <li>Added multi-language support for 5 new languages</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version17" class="version">
+          <h2>
+            Version 17
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on February 15, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.7.2</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK4, BACK5</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class C</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Maintenance Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Performance optimization for treatment algorithms</li>
+              <li>Bug fixes in the scheduling system</li>
+              <li>Updated calibration parameters</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version16" class="version">
+          <h2>
+            Version 16
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on January 5, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.6.0</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK3, BACK4</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Feature Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Integration with cloud storage for treatment data</li>
+              <li>New reporting and analytics features</li>
+              <li>Improved user interface responsiveness</li>
+              <li>Added support for external sensors</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version15" class="version">
+          <h2>
+            Version 15
+            <img src="img/Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on March 20, 2025</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.1.1.1</h3>
+            <p data-translate="summary">Summary of changes made</p>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK4</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Classe B</p>
+            <h4 data-translate="type">Type:</h4>
+            <p data-translate="evolutionary">Evolutionary version</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li data-translate="bug_fixes">Bug fixes</li>
+              <li data-translate="stability">Stability improvements</li>
+              <li data-translate="new_features">Addition of new features</li>
+            </ul>
+            <h4 data-translate="installation">Installation</h4>
+            <ol>
+              <li data-translate="download">Download the update</li>
+              <li data-translate="install">Install the update on the device</li>
+              <li data-translate="restart">Restart the device</li>
+            </ol>
+            <h4 data-translate="support">Technical support</h4>
+            <p>Email: support@winback.com<br />Phone: +33 4 12 34 56 78</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module">
+      import translations from "./translations.js";
+
+      const toggle = document.getElementById("toggle");
+      const body = document.body;
+      const winbackLogo = document.getElementById("winback-logo");
+      const burgerMenu = document.getElementById("burger-menu");
+      const sidebar = document.getElementById("sidebar");
+      const languageSelect = document.getElementById("language-select");
+
+      // Mode sombre
+      winbackLogo.addEventListener("load", function () {
+        const svgDoc = winbackLogo.contentDocument;
+        const paths = svgDoc.querySelectorAll("path");
+        if (body.classList.contains("dark-mode")) {
+          paths.forEach((path) => {
+            if (path.getAttribute("fill") !== "#F18841")
+              path.style.fill = "#FFFFFF";
+          });
+        }
+        toggle.addEventListener("change", () => {
+          body.classList.toggle("dark-mode");
+          paths.forEach((path) => {
+            if (path.getAttribute("fill") !== "#F18841") {
+              path.style.fill = body.classList.contains("dark-mode")
+                ? "#FFFFFF"
+                : "#000000";
+            }
+          });
+        });
+      });
+
+      // Menu burger
+      burgerMenu.addEventListener("click", () => {
+        burgerMenu.classList.toggle("active");
+        sidebar.classList.toggle("hidden");
+        sidebar.classList.toggle("visible");
+        body.classList.toggle("sidebar-open");
+      });
+
+      // Initialiser la sidebar
+      function initializeSidebar() {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.add("hidden");
+          sidebar.classList.remove("visible");
+          body.classList.remove("sidebar-open");
+        } else {
+          sidebar.classList.remove("hidden");
+          sidebar.classList.add("visible");
+          body.classList.add("sidebar-open");
+        }
+      }
+
+      window.addEventListener("load", initializeSidebar);
+      window.addEventListener("resize", initializeSidebar);
+
+      // Détails des versions
+      document.querySelectorAll(".version h2").forEach((header) => {
+        header.addEventListener("click", function () {
+          const details = this.nextElementSibling.nextElementSibling;
+          const arrow = this.querySelector(".arrow-icon");
+          details.classList.toggle("show");
+          arrow.style.transform = details.classList.contains("show")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+        });
+      });
+
+      // Recherche
+      const searchToggle = document.getElementById("search-toggle");
+      const searchBar = document.getElementById("search-bar");
+      const searchContainer = document.querySelector(".search-container");
+
+      searchToggle.addEventListener("click", () => {
+        searchBar.classList.toggle("active");
+        if (searchBar.classList.contains("active"))
+          searchBar.querySelector("input").focus();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          !searchContainer.contains(e.target) &&
+          !searchToggle.contains(e.target)
+        ) {
+          searchBar.classList.remove("active");
+        }
+      });
+
+      // Gestion de la langue
+      function updateLanguage(lang) {
+        document.querySelectorAll("[data-translate]").forEach((element) => {
+          const key = element.getAttribute("data-translate");
+          if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+        document.documentElement.lang = lang;
+
+        // Ajouter le drapeau au sélecteur
+        const selectedOption = languageSelect.querySelector(
+          `option[value="${lang}"]`
+        );
+        const flag = selectedOption.getAttribute("data-flag");
+        languageSelect.style.backgroundPosition =
+          "left 5px center, right 5px center";
+      }
+
+      languageSelect.addEventListener("change", (e) => {
+        updateLanguage(e.target.value);
+      });
+
+      // Initialiser en anglais
+      window.addEventListener("load", () => updateLanguage("en"));
+    </script>
+  </body>
+</html>

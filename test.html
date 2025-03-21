@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-translate="title">Release Notes</title>
+    <link rel="icon" href="LogoWBrond.png" />
+    <style>
+      :root {
+        --primary-color: #f18841;
+        --secondary-color: #171717;
+        --tertiary-color: #ffffff;
+        --bg-color: var(--tertiary-color);
+        --text-color: var(--secondary-color);
+        --grey-text-color: hwb(30 3% 94% / 0.5);
+      }
+
+      body.dark-mode {
+        --bg-color: var(--secondary-color);
+        --text-color: var(--tertiary-color);
+      }
+
+      body {
+        font-family: gotham_bookregular, Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      /* Navbar */
+      nav {
+        background-color: var(--bg-color);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1001;
+        box-sizing: border-box;
+      }
+
+      .nav-container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+      }
+
+      #winback-logo {
+        margin: 0 0 0 200px; /* Version desktop - aligné avec le contenu principal */
+        height: 20px;
+      }
+
+      #winback-logo:hover {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        transform: scale(1.1);
+      }
+
+      .burger-menu {
+        margin-right: 20px;
+        width: 30px;
+        height: 24px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .burger-menu span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: var(--text-color);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+
+      .burger-menu span:nth-child(1) {
+        top: 0;
+      }
+      .burger-menu span:nth-child(2) {
+        top: 8px;
+      }
+      .burger-menu span:nth-child(3) {
+        top: 16px;
+      }
+
+      .burger-menu.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .burger-menu.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-icon {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .search-icon:hover {
+        transform: scale(1.2);
+      }
+
+      .search-bar {
+        width: 0;
+        height: 30px;
+        background: #eee;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+
+      .search-bar.active {
+        width: 150px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+        font-size: 14px;
+        color: var(--secondary-color);
+        background: transparent;
+      }
+
+      body.dark-mode .search-bar {
+        background: rgba(0, 0, 0, 0.4);
+      }
+      body.dark-mode .search-bar input {
+        color: var(--tertiary-color);
+      }
+
+      .switch {
+        width: 60px;
+        height: 30px;
+        background: #e0e0e0;
+        border-radius: 50px;
+        position: relative;
+        transition: all 0.4s ease;
+        cursor: pointer;
+      }
+
+      .switch:hover {
+        background: #383838;
+      }
+      body.dark-mode .switch {
+        background: #434343;
+      }
+      .switch input {
+        display: none;
+      }
+
+      .slider {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        background-image: url("LogoWBrond.png");
+        background-size: 80%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .switch input:checked + .slider {
+        transform: translateX(30px);
+      }
+
+      /* Sidebar */
+      .sidebar {
+        border-right: 1px solid #eee;
+        width: 200px;
+        position: fixed;
+        left: 0;
+        top: 48px; /* Hauteur de la navbar */
+        bottom: 0;
+        background: var(--bg-color);
+        transition: left 0.3s ease;
+        z-index: 1000;
+        padding-top: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        direction: rtl;
+      }
+
+      .sidebar.hidden {
+        left: -220px;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+        direction: ltr;
+      }
+
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 3px;
+      }
+      .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #d67736;
+      }
+
+      .sidebar a {
+        font-size: 14px;
+        text-decoration: none;
+        color: var(--grey-text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px 25px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar a:hover {
+        border-radius: 0 10px 10px 0;
+        font-size: 17px;
+        color: var(--tertiary-color);
+        font-weight: 700;
+        background-color: var(--primary-color);
+        margin-right: 20px;
+      }
+
+      .sidebar li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .side-arrow-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        filter: brightness(0) invert(1);
+      }
+
+      body.dark-mode .sidebar a {
+        color: var(--tertiary-color);
+      }
+
+      /* Header */
+      header {
+        position: relative;
+        height: 250px;
+        text-align: left;
+        padding: 46px 0 0;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("B3B.png") no-repeat center center;
+        background-size: cover;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        color: var(--tertiary-color);
+        position: relative;
+        z-index: 1;
+        font-size: 55px;
+        max-width: 900px;
+        margin: 35px 220px;
+      }
+
+      .header-bottom {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        padding: 0 220px 20px;
+        gap: 15px;
+      }
+
+      .header-disclaimer {
+        background: rgba(23, 23, 23, 0.8);
+        border-radius: 25px;
+        padding: 10px 20px;
+        color: var(--tertiary-color);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        flex-grow: 1;
+      }
+
+      .language-selector select {
+        width: 45px;
+        height: 45px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 30px; /* Taille plus grande pour le drapeau */
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-align: center;
+        outline: none; /* Supprime le contour lors du focus */
+      }
+
+      .language-selector select:focus {
+        outline: none; /* Supprime le contour lors du focus */
+      }
+
+      .language-selector select:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+      }
+
+      /* Ajustement pour mobile */
+      @media (max-width: 768px) {
+        .language-selector select {
+          width: 40px;
+          height: 40px;
+          font-size: 25px;
+        }
+      }
+
+      /* Main */
+      main {
+        padding: 20px;
+        margin-left: 220px;
+        max-width: 900px;
+        position: relative;
+        transition: margin-left 0.3s ease;
+      }
+
+      .content {
+        width: 100%;
+        position: relative;
+      }
+
+      .version {
+        margin-bottom: 30px;
+        padding-bottom: 50px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .version h2 {
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .arrow-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+        rotate: 90deg;
+      }
+
+      .release-details {
+        display: none;
+        margin-top: 20px;
+      }
+      .release-details.show {
+        display: block;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        nav {
+          padding: 8px 10px;
+          height: 50px;
+        }
+
+        .nav-container {
+          gap: 10px; /* Espace de 10px entre le burger menu et le logo */
+        }
+        #winback-logo {
+          margin: 0; /* Réinitialiser la marge desktop */
+          height: 15px;
+        }
+        .burger-menu {
+          margin-right: 0; /* Réinitialiser la marge desktop */
+          width: 25px;
+          height: 18px;
+        }
+        .burger-menu span {
+          height: 2px;
+        }
+        .burger-menu span:nth-child(2) {
+          top: 7px;
+        }
+        .burger-menu span:nth-child(3) {
+          top: 14px;
+        }
+
+        .nav-controls {
+          gap: 10px;
+        }
+        .search-icon {
+          width: 20px;
+          height: 20px;
+        }
+        .search-bar {
+          height: 25px;
+        }
+        .search-bar.active {
+          width: 120px;
+        }
+        .search-bar input {
+          font-size: 12px;
+          padding: 0 8px;
+        }
+        .switch {
+          width: 50px;
+          height: 25px;
+        }
+        .slider {
+          width: 17px;
+          height: 17px;
+          top: 4px;
+          left: 4px;
+        }
+        .switch input:checked + .slider {
+          transform: translateX(25px);
+        }
+
+        .sidebar {
+          top: 50px;
+          width: 180px;
+        }
+        .sidebar.hidden {
+          left: -200px;
+        }
+        body.sidebar-open main {
+          margin-left: 180px;
+        }
+
+        header {
+          margin-top: 50px;
+          height: auto;
+          min-height: 200px;
+          padding: 20px 0 0;
+          width: 100vw; /* Prend toute la largeur de l'écran */
+          margin-left: 0;
+          margin-right: 0;
+        }
+        header h1 {
+          font-size: 40px;
+          margin: 20px;
+          width: calc(100% - 40px); /* Largeur totale moins les marges */
+        }
+        .header-bottom {
+          padding: 0 20px 15px;
+          flex-direction: column;
+          align-items: flex-start;
+          width: calc(100% - 40px); /* Largeur totale moins les marges */
+        }
+        .header-disclaimer {
+          width: 90%;
+          padding: 8px 15px;
+          font-size: 12px;
+        }
+
+        main {
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        nav {
+          height: 45px;
+        }
+        .sidebar {
+          top: 45px;
+          width: 150px;
+        }
+        .sidebar.hidden {
+          left: -170px;
+        }
+        body.sidebar-open main {
+          margin-left: 150px;
+        }
+
+        header {
+          margin-top: 45px;
+        }
+        header h1 {
+          font-size: 30px;
+          margin: 15px;
+          width: calc(100% - 30px);
+        }
+        .header-bottom {
+          padding: 0 15px 10px;
+          width: calc(100% - 30px);
+        }
+        .search-bar.active {
+          width: 100px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        header h1 {
+          font-size: 26px;
+          margin: 10px;
+          width: calc(100% - 20px);
+        }
+        .header-bottom {
+          padding: 0 10px 8px;
+          width: calc(100% - 20px);
+        }
+        .header-disclaimer {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <!-- Burger menu déplacé en premier -->
+        <div class="burger-menu" id="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <!-- Logo déplacé après -->
+        <object
+          id="winback-logo"
+          data="logoWB.svg"
+          type="image/svg+xml"
+        ></object>
+      </div>
+      <div class="nav-controls">
+        <div class="search-container">
+          <img
+            src="loupe.png"
+            alt="Search"
+            class="search-icon"
+            id="search-toggle"
+          />
+          <div class="search-bar" id="search-bar">
+            <input
+              type="text"
+              placeholder="Search release history..."
+              data-translate="search_placeholder"
+            />
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle" />
+          <div class="slider"></div>
+        </label>
+      </div>
+    </nav>
+
+    <header>
+      <h1 data-translate="title">Release Notes</h1>
+      <div class="header-bottom">
+        <div class="header-disclaimer">
+          <div class="language-selector">
+            <select id="language-select">
+              <option value="en">🇬🇧</option>
+              <option value="fr">🇫🇷</option>
+              <option value="de">🇩🇪</option>
+              <option value="nl">🇳🇱</option>
+              <option value="el">🇬🇷</option>
+              <option value="hu">🇭🇺</option>
+              <option value="it">🇮🇹</option>
+              <option value="pl">🇵🇱</option>
+              <option value="pt">🇵🇹</option>
+              <option value="es">🇪🇸</option>
+              <option value="sv">🇸🇪</option>
+              <option value="tr">🇹🇷</option>
+            </select>
+          </div>
+          <span data-translate="disclaimer"
+            >For any questions or translation requests, contact us at +33 4 12
+            34 56 78 or support@winback.com</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="sidebar hidden" id="sidebar">
+        <ul>
+          <li>
+            <a href="#version20"
+              >Version 20
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version19"
+              >Version 19
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version18"
+              >Version 18
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version17"
+              >Version 17
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version16"
+              >Version 16
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version15"
+              >Version 15
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version14"
+              >Version 14
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version13"
+              >Version 13
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version12"
+              >Version 12
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version11"
+              >Version 11
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version10"
+              >Version 10
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version9"
+              >Version 9
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version8"
+              >Version 8
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version7"
+              >Version 7
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version6"
+              >Version 6
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version5"
+              >Version 5
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version4"
+              >Version 4
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version3"
+              >Version 3
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version2"
+              >Version 2
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+          <li>
+            <a href="#version1"
+              >Version 1
+              <img src="Arrow.png" alt="Flèche" class="side-arrow-icon"
+            /></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <section id="version20" class="version">
+          <h2>
+            Version 20 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on July 15, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 2.0.0</h3>
+            <p data-translate="summary">
+              Major update with new features and improvements
+            </p>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5, BACK4</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class A</p>
+            <h4 data-translate="type">Type:</h4>
+            <p data-translate="evolutionary">Major Release</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Integration of AI-powered treatment protocols</li>
+              <li>New user interface with customizable dashboard</li>
+              <li>Advanced patient data analytics</li>
+              <li>Real-time treatment monitoring system</li>
+            </ul>
+            <h4 data-translate="installation">Installation</h4>
+            <ol>
+              <li data-translate="download">Download update</li>
+              <li data-translate="install">Install update on device</li>
+              <li data-translate="restart">Restart device</li>
+            </ol>
+            <h4 data-translate="support">Technical Support</h4>
+            <p>Email: support@winback.com<br />Phone: +33 4 12 34 56 78</p>
+          </div>
+        </section>
+
+        <section id="version19" class="version">
+          <h2>
+            Version 19 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on May 3, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.9.3</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5, BACK4, BACK3</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class B</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Security Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Enhanced encryption for patient data</li>
+              <li>Updated wireless communication protocols</li>
+              <li>Improved firewall protection</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version18" class="version">
+          <h2>
+            Version 18 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on March 28, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.8.5</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK5</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Feature Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>New treatment protocols for sports medicine</li>
+              <li>Enhanced battery management system</li>
+              <li>Improved treatment scheduling interface</li>
+              <li>Added multi-language support for 5 new languages</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version17" class="version">
+          <h2>
+            Version 17 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on February 15, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.7.2</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK4, BACK5</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Class C</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Maintenance Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Performance optimization for treatment algorithms</li>
+              <li>Bug fixes in the scheduling system</li>
+              <li>Updated calibration parameters</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version16" class="version">
+          <h2>
+            Version 16 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on January 5, 2026</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.6.0</h3>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK3, BACK4</p>
+            <h4 data-translate="type">Type:</h4>
+            <p>Feature Update</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li>Integration with cloud storage for treatment data</li>
+              <li>New reporting and analytics features</li>
+              <li>Improved user interface responsiveness</li>
+              <li>Added support for external sensors</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="version15" class="version">
+          <h2>
+            Version 15 <img src="Arrow.png" alt="Flèche" class="arrow-icon" />
+          </h2>
+          <p data-translate="published">Published on March 20, 2025</p>
+          <div class="release-details">
+            <h3 data-translate="details">Details of version 1.1.1.1</h3>
+            <p data-translate="summary">Summary of changes made</p>
+            <h4 data-translate="model">Affected model</h4>
+            <p>BACK4</p>
+            <h4 data-translate="security">Security classification:</h4>
+            <p>Classe B</p>
+            <h4 data-translate="type">Type:</h4>
+            <p data-translate="evolutionary">Evolutionary version</p>
+            <h4 data-translate="changes">Details of changes</h4>
+            <ul>
+              <li data-translate="bug_fixes">Bug fixes</li>
+              <li data-translate="stability">Stability improvements</li>
+              <li data-translate="new_features">Addition of new features</li>
+            </ul>
+            <h4 data-translate="installation">Installation</h4>
+            <ol>
+              <li data-translate="download">Download the update</li>
+              <li data-translate="install">Install the update on the device</li>
+              <li data-translate="restart">Restart the device</li>
+            </ol>
+            <h4 data-translate="support">Technical support</h4>
+            <p>Email: support@winback.com<br />Phone: +33 4 12 34 56 78</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const translations = {
+        en: {
+          title: "Release Notes",
+          disclaimer:
+            "For any questions or translation requests, contact us at +33 4 12 34 56 78 or support@winback.com",
+          search_placeholder: "Search release history...",
+          published: "Published on March 20, 2025",
+          details: "Details of version 1.1.1.1",
+          summary: "Summary of changes made",
+          model: "Affected model",
+          security: "Security classification:",
+          type: "Type:",
+          evolutionary: "Evolutionary version",
+          changes: "Details of changes",
+          bug_fixes: "Bug fixes",
+          stability: "Stability improvements",
+          new_features: "Addition of new features",
+          installation: "Installation",
+          download: "Download the update",
+          install: "Install the update on the device",
+          restart: "Restart the device",
+          support: "Technical support",
+        },
+        fr: {
+          title: "Notes de version",
+          disclaimer:
+            "Pour toute question ou demande de traduction, contactez-nous au +33 4 12 34 56 78 ou à support@winback.com.",
+          search_placeholder: "Rechercher dans l'historique des versions...",
+          published: "Publié le 20 mars 2025",
+          details: "Détails de la version 1.1.1.1",
+          summary: "Résumé des modifications apportées",
+          model: "Modèle concerné",
+          security: "Classification de sécurité :",
+          type: "Type :",
+          evolutionary: "Version évolutive",
+          changes: "Détail des modifications",
+          bug_fixes: "Correction de bugs",
+          stability: "Améliorations de la stabilité",
+          new_features: "Ajout de nouvelles fonctionnalités",
+          installation: "Installation",
+          download: "Télécharger la mise à jour",
+          install: "Installer la mise à jour sur l'appareil",
+          restart: "Redémarrer l'appareil",
+          support: "Support technique",
+        },
+        de: {
+          title: "Versionshinweise",
+          disclaimer:
+            "Für Fragen oder Übersetzungsanfragen kontaktieren Sie uns unter +33 4 12 34 56 78 oder support@winback.com.",
+          search_placeholder: "Versionsverlauf durchsuchen...",
+          published: "Veröffentlicht am 20. März 2025",
+          details: "Details der Version 1.1.1.1",
+          summary: "Zusammenfassung der vorgenommenen Änderungen",
+          model: "Betroffenes Modell",
+          security: "Sicherheitsklassifikation:",
+          type: "Typ:",
+          evolutionary: "Evolutionäre Version",
+          changes: "Details der Änderungen",
+          bug_fixes: "Fehlerbehebungen",
+          stability: "Stabilitätsverbesserungen",
+          new_features: "Hinzufügung neuer Funktionen",
+          installation: "Installation",
+          download: "Update herunterladen",
+          install: "Update auf dem Gerät installieren",
+          restart: "Gerät neu starten",
+          support: "Technischer Support",
+        },
+        nl: {
+          title: "Release-opmerkingen",
+          disclaimer:
+            "Voor vragen of vertaalverzoeken kunt u contact met ons opnemen via +33 4 12 34 56 78 of support@winback.com.",
+          search_placeholder: "Zoek in releasegeschiedenis...",
+          published: "Gepubliceerd op 20 maart 2025",
+          details: "Details van versie 1.1.1.1",
+          summary: "Samenvatting van de aangebrachte wijzigingen",
+          model: "Betroffen model",
+          security: "Beveiligingsclassificatie:",
+          type: "Type:",
+          evolutionary: "Evolutionaire versie",
+          changes: "Details van de wijzigingen",
+          bug_fixes: "Bugfixes",
+          stability: "Stabiliteitsverbeteringen",
+          new_features: "Toevoeging van nieuwe functies",
+          installation: "Installatie",
+          download: "Update downloaden",
+          install: "Update op het apparaat installieren",
+          restart: "Apparaat herstarten",
+          support: "Technische ondersteuning",
+        },
+        el: {
+          title: "Σημειώσεις έκδοσης",
+          disclaimer:
+            "Για οποιαδήποτε ερώτηση ή αίτημα μετάφρασης, επικοινωνήστε μαζί μας στο +33 4 12 34 56 78 ή στο support@winback.com.",
+          search_placeholder: "Αναζήτηση στο ιστορικό εκδόσεων...",
+          published: "Δημοσιεύτηκε στις 20 Μαρτίου 2025",
+          details: "Λεπτομέρειες της έκδοσης 1.1.1.1",
+          summary: "Περίληψη των αλλαγών που έγιναν",
+          model: "Επηρεαζόμενο μοντέλο",
+          security: "Ταξινόμηση ασφαλείας:",
+          type: "Τύπος:",
+          evolutionary: "Εξελικτική έκδοση",
+          changes: "Λεπτομέρειες των αλλαγών",
+          bug_fixes: "Διορθώσεις σφαλμάτων",
+          stability: "Βελτιώσεις σταθερότητας",
+          new_features: "Προσθήκη νέων λειτουργιών",
+          installation: "Εγκατάσταση",
+          download: "Λήψη της ενημέρωσης",
+          install: "Εγκατάσταση της ενημέρωσης στη συσκευή",
+          restart: "Επανεκκίνηση της συσκευής",
+          support: "Τεχνική υποστήριξη",
+        },
+        hu: {
+          title: "Kiadási jegyzetek",
+          disclaimer:
+            "Bármilyen kérdés vagy fordítási kérés esetén lépjen kapcsolatba velünk a +33 4 12 34 56 78 számon vagy a support@winback.com címen.",
+          search_placeholder: "Keresés a kiadási előzményekben...",
+          published: "Közzétéve: 2025. március 20.",
+          details: "Az 1.1.1.1 verzió részletei",
+          summary: "A végrehajtott változtatások összefoglalója",
+          model: "Érintett modell",
+          security: "Biztonsági besorolás:",
+          type: "Típus:",
+          evolutionary: "Evolúciós verzió",
+          changes: "A változtatások részletei",
+          bug_fixes: "Hibajavítások",
+          stability: "Stabilitási javítások",
+          new_features: "Új funkciók hozzáadása",
+          installation: "Telepítés",
+          download: "Frissítés letöltése",
+          install: "Frissítés telepítése az eszközre",
+          restart: "Eszköz újraindítása",
+          support: "Műszaki támogatás",
+        },
+        it: {
+          title: "Note di rilascio",
+          disclaimer:
+            "Per qualsiasi domanda o richiesta di traduzione, contattaci al +33 4 12 34 56 78 o a support@winback.com.",
+          search_placeholder: "Cerca nella cronologia delle versioni...",
+          published: "Pubblicato il 20 marzo 2025",
+          details: "Dettagli della versione 1.1.1.1",
+          summary: "Riepilogo delle modifiche apportate",
+          model: "Modello interessato",
+          security: "Classificazione di sicurezza:",
+          type: "Tipo:",
+          evolutionary: "Versione evolutiva",
+          changes: "Dettagli delle modifiche",
+          bug_fixes: "Correzioni di bug",
+          stability: "Miglioramenti della stabilità",
+          new_features: "Aggiunta di nuove funzionalità",
+          installation: "Installazione",
+          download: "Scarica l'aggiornamento",
+          install: "Installa l'aggiornamento sul dispositivo",
+          restart: "Riavvia il dispositivo",
+          support: "Supporto tecnico",
+        },
+        pl: {
+          title: "Notatki o wydaniu",
+          disclaimer:
+            "W razie pytań lub próśb o tłumaczenie skontaktuj się z nami pod numerem +33 4 12 34 56 78 lub na adres support@winback.com.",
+          search_placeholder: "Szukaj w historii wydań...",
+          published: "Opublikowano 20 marca 2025",
+          details: "Szczegóły wersji 1.1.1.1",
+          summary: "Podsumowanie wprowadzonych zmian",
+          model: "Dotknięty model",
+          security: "Klasyfikacja bezpieczeństwa:",
+          type: "Typ:",
+          evolutionary: "Wersja ewolucyjna",
+          changes: "Szczegóły zmian",
+          bug_fixes: "Naprawa błędów",
+          stability: "Poprawy stabilności",
+          new_features: "Dodanie nowych funkcji",
+          installation: "Instalacja",
+          download: "Pobierz aktualizację",
+          install: "Zainstaluj aktualizację na urządzeniu",
+          restart: "Uruchom ponownie urządzenie",
+          support: "Wsparcie techniczne",
+        },
+        pt: {
+          title: "Notas de lançamento",
+          disclaimer:
+            "Para quaisquer perguntas ou pedidos de tradução, contate-nos pelo +33 4 12 34 56 78 ou em support@winback.com.",
+          search_placeholder: "Pesquisar no histórico de lançamentos...",
+          published: "Publicado em 20 de março de 2025",
+          details: "Detalhes da versão 1.1.1.1",
+          summary: "Resumo das alterações realizadas",
+          model: "Modelo afetado",
+          security: "Classificação de segurança:",
+          type: "Tipo:",
+          evolutionary: "Versão evolutiva",
+          changes: "Detalhes das alterações",
+          bug_fixes: "Correções de bugs",
+          stability: "Melhorias de estabilidade",
+          new_features: "Adição de novas funcionalidades",
+          installation: "Instalação",
+          download: "Baixar a atualização",
+          install: "Instalar a atualização no dispositivo",
+          restart: "Reiniciar o dispositivo",
+          support: "Suporte técnico",
+        },
+        es: {
+          title: "Notas de lanzamiento",
+          disclaimer:
+            "Para cualquier pregunta o solicitud de traducción, contáctenos al +33 4 12 34 56 78 o en support@winback.com.",
+          search_placeholder: "Buscar en el historial de lanzamientos...",
+          published: "Publicado el 20 de marzo de 2025",
+          details: "Detalles de la versión 1.1.1.1",
+          summary: "Resumen de los cambios realizados",
+          model: "Modelo afectado",
+          security: "Clasificación de seguridad:",
+          type: "Tipo:",
+          evolutionary: "Versión evolutiva",
+          changes: "Detalles de los cambios",
+          bug_fixes: "Corrección de errores",
+          stability: "Mejoras de estabilidad",
+          new_features: "Añadido de nuevas funcionalidades",
+          installation: "Instalación",
+          download: "Descargar la actualización",
+          install: "Instalar la actualización en el dispositivo",
+          restart: "Reiniciar el dispositivo",
+          support: "Soporte técnico",
+        },
+        sv: {
+          title: "Versionsanteckningar",
+          disclaimer:
+            "För frågor eller översättningsförfrågningar, kontakta oss på +33 4 12 34 56 78 eller support@winback.com.",
+          search_placeholder: "Sök i versionshistoriken...",
+          published: "Publicerad den 20 mars 2025",
+          details: "Detaljer för version 1.1.1.1",
+          summary: "Sammanfattning av gjorda ändringar",
+          model: "Påverkad modell",
+          security: "Säkerhetsklassificering:",
+          type: "Typ:",
+          evolutionary: "Evolutionär version",
+          changes: "Detaljer om ändringarna",
+          bug_fixes: "Bugfixar",
+          stability: "Stabilitetsförbättringar",
+          new_features: "Tillägg av nya funktioner",
+          installation: "Installation",
+          download: "Ladda ner uppdateringen",
+          install: "Installera uppdateringen på enheten",
+          restart: "Starta om enheten",
+          support: "Teknisk support",
+        },
+        tr: {
+          title: "Sürüm Notları",
+          disclaimer:
+            "Herhangi bir soru veya çeviri talebi için bizimle +33 4 12 34 56 78 numaralı telefondan veya support@winback.com adresinden iletişime geçin.",
+          search_placeholder: "Sürüm geçmişinde ara...",
+          published: "20 Mart 2025'te yayınlandı",
+          details: "1.1.1.1 sürümünün detayları",
+          summary: "Yapılan değişikliklerin özeti",
+          model: "Etkilenen model",
+          security: "Güvenlik sınıflandırması:",
+          type: "Tür:",
+          evolutionary: "Evrimsel sürüm",
+          changes: "Değişikliklerin detayları",
+          bug_fixes: "Hata düzeltmeleri",
+          stability: "Kararlılık iyileştirmeleri",
+          new_features: "Yeni özelliklerin eklenmesi",
+          installation: "Kurulum",
+          download: "Güncellemeyi indir",
+          install: "Güncellemeyi cihaza kur",
+          restart: "Cihazı yeniden başlat",
+          support: "Teknik destek",
+        },
+      };
+
+      const toggle = document.getElementById("toggle");
+      const body = document.body;
+      const winbackLogo = document.getElementById("winback-logo");
+      const burgerMenu = document.getElementById("burger-menu");
+      const sidebar = document.getElementById("sidebar");
+      const languageSelect = document.getElementById("language-select");
+
+      // Mode sombre
+      winbackLogo.addEventListener("load", function () {
+        const svgDoc = winbackLogo.contentDocument;
+        const paths = svgDoc.querySelectorAll("path");
+        if (body.classList.contains("dark-mode")) {
+          paths.forEach((path) => {
+            if (path.getAttribute("fill") !== "#F18841")
+              path.style.fill = "#FFFFFF";
+          });
+        }
+        toggle.addEventListener("change", () => {
+          body.classList.toggle("dark-mode");
+          paths.forEach((path) => {
+            if (path.getAttribute("fill") !== "#F18841") {
+              path.style.fill = body.classList.contains("dark-mode")
+                ? "#FFFFFF"
+                : "#000000";
+            }
+          });
+        });
+      });
+
+      // Menu burger
+      burgerMenu.addEventListener("click", () => {
+        burgerMenu.classList.toggle("active");
+        sidebar.classList.toggle("hidden");
+        sidebar.classList.toggle("visible");
+        body.classList.toggle("sidebar-open");
+      });
+
+      // Initialiser la sidebar
+      function initializeSidebar() {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.add("hidden");
+          sidebar.classList.remove("visible");
+          body.classList.remove("sidebar-open");
+        } else {
+          sidebar.classList.remove("hidden");
+          sidebar.classList.add("visible");
+          body.classList.add("sidebar-open");
+        }
+      }
+
+      window.addEventListener("load", initializeSidebar);
+      window.addEventListener("resize", initializeSidebar);
+
+      // Détails des versions
+      document.querySelectorAll(".version h2").forEach((header) => {
+        header.addEventListener("click", function () {
+          const details = this.nextElementSibling.nextElementSibling;
+          const arrow = this.querySelector(".arrow-icon");
+          details.classList.toggle("show");
+          arrow.style.transform = details.classList.contains("show")
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+        });
+      });
+
+      // Recherche
+      const searchToggle = document.getElementById("search-toggle");
+      const searchBar = document.getElementById("search-bar");
+      const searchContainer = document.querySelector(".search-container");
+
+      searchToggle.addEventListener("click", () => {
+        searchBar.classList.toggle("active");
+        if (searchBar.classList.contains("active"))
+          searchBar.querySelector("input").focus();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          !searchContainer.contains(e.target) &&
+          !searchToggle.contains(e.target)
+        ) {
+          searchBar.classList.remove("active");
+        }
+      });
+
+      // Gestion de la langue
+      function updateLanguage(lang) {
+        document.querySelectorAll("[data-translate]").forEach((element) => {
+          const key = element.getAttribute("data-translate");
+          if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+        document.documentElement.lang = lang;
+
+        // Ajouter le drapeau au sélecteur
+        const selectedOption = languageSelect.querySelector(
+          `option[value="${lang}"]`
+        );
+        const flag = selectedOption.getAttribute("data-flag");
+        languageSelect.style.backgroundPosition =
+          "left 5px center, right 5px center";
+      }
+
+      languageSelect.addEventListener("change", (e) => {
+        updateLanguage(e.target.value);
+      });
+
+      // Initialiser en anglais
+      window.addEventListener("load", () => updateLanguage("en"));
+    </script>
+  </body>
+</html>
