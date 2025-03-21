@@ -67,7 +67,7 @@ nav {
   width: 30px;
   height: 24px;
   position: relative;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .burger-menu span {
@@ -467,7 +467,7 @@ main {
   color: var(--primary-color);
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer; /* Ajout du curseur pointer */
 }
 
 .arrow-icon {
@@ -557,7 +557,7 @@ main {
 
   header {
     margin-top: 50px;
-    height: auto;
+    height: 100px;
     min-height: 200px;
     padding: 10px 0 0; /* Réduit encore plus le padding sur mobile */
     width: 100vw; /* Prend toute la largeur de l'écran */
